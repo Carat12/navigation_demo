@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_dest">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.example.navigationcomp.HomeFragmentDest"
+        tools:layout="@layout/fragment_home_dest"/>
+
+    <fragment
+        android:id="@+id/step_one_dest"
+        android:name="com.example.navigationcomp.FlowStepOneFragment"
+        tools:layout="@layout/fragment_flow_step_one">
+        <action
+            android:id="@+id/to_step_two_dest"
+            app:destination="@+id/step_two_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="num"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/step_two_dest"
+        android:name="com.example.navigationcomp.FlowStepTwoFragment"
+        tools:layout="@layout/fragment_flow_step_two">
+        <action
+            android:id="@+id/to_home_dest"
+            app:destination="@id/home_dest"
+            app:popUpTo="@+id/home_dest"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="numTwo"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/deep_link_dest"
+        android:name="com.example.navigationcomp.DeepLinkFragment"
+        tools:layout="@layout/fragment_deep_link">
+        <argument
+            android:name="deepLinkArg"
+            android:defaultValue="Android!"/>
+        <deepLink
+            app:uri="www.example.com/{deepLinkArg}"/>
+    </fragment>
+</navigation>

@@ -3,58 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_dest">
+    app:startDestination="@id/sub_nav_graph">
+
+    <action
+        android:id="@+id/to_page_one"
+        app:destination="@+id/sub_nav_graph"
+        app:popUpTo="@id/sub_nav_graph"
+        app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/to_page_two"
+        app:destination="@+id/page_two_dest"
+        app:popUpTo="@id/page_two_dest"
+        app:popUpToInclusive="true"/>
+    <navigation
+        android:id="@+id/sub_nav_graph"
+        app:startDestination="@id/home_dest">
+        <fragment
+            android:id="@+id/home_dest"
+            android:name="com.example.navigationcomp.HomeFragmentDest"
+            tools:layout="@layout/fragment_home_dest" />
+
+        <fragment
+            android:id="@+id/step_one_dest"
+            android:name="com.example.navigationcomp.FlowStepOneFragment"
+            tools:layout="@layout/fragment_flow_step_one">
+            <action
+                android:id="@+id/to_step_two_dest"
+                app:destination="@+id/step_two_dest"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+            <argument
+                android:name="num"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/step_two_dest"
+            android:name="com.example.navigationcomp.FlowStepTwoFragment"
+            tools:layout="@layout/fragment_flow_step_two">
+            <action
+                android:id="@+id/to_home_dest"
+                app:destination="@id/home_dest"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:popUpTo="@+id/home_dest"
+                app:popUpToInclusive="true" />
+            <argument
+                android:name="numTwo"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/deep_link_dest"
+            android:name="com.example.navigationcomp.DeepLinkFragment"
+            tools:layout="@layout/fragment_deep_link">
+            <argument
+                android:name="deepLinkArg"
+                android:defaultValue="Android!" />
+            <deepLink app:uri="www.example.com/{deepLinkArg}" />
+        </fragment>
+    </navigation>
 
     <fragment
-        android:id="@+id/home_dest"
-        android:name="com.example.navigationcomp.HomeFragmentDest"
-        tools:layout="@layout/fragment_home_dest"/>
-
-    <fragment
-        android:id="@+id/step_one_dest"
-        android:name="com.example.navigationcomp.FlowStepOneFragment"
-        tools:layout="@layout/fragment_flow_step_one">
-        <action
-            android:id="@+id/to_step_two_dest"
-            app:destination="@+id/step_two_dest"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <argument
-            android:name="num"
-            app:argType="integer"
-            android:defaultValue="0"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/step_two_dest"
-        android:name="com.example.navigationcomp.FlowStepTwoFragment"
-        tools:layout="@layout/fragment_flow_step_two">
-        <action
-            android:id="@+id/to_home_dest"
-            app:destination="@id/home_dest"
-            app:popUpTo="@+id/home_dest"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <argument
-            android:name="numTwo"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/deep_link_dest"
-        android:name="com.example.navigationcomp.DeepLinkFragment"
-        tools:layout="@layout/fragment_deep_link">
-        <argument
-            android:name="deepLinkArg"
-            android:defaultValue="Android!"/>
-        <deepLink
-            app:uri="www.example.com/{deepLinkArg}"/>
-    </fragment>
+        android:id="@+id/page_two_dest"
+        android:name="com.example.navigationcomp.PageTwoFragment"
+        tools:layout="@layout/fragment_page_two" />
 </navigation>
